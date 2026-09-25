@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Durations only. Rendering remains synchronized to Android's display frame clock. -->
+    <integer name="vanta_motion_instant">100</integer>
+    <integer name="vanta_motion_fast">160</integer>
+    <integer name="vanta_motion_standard">240</integer>
+    <integer name="vanta_motion_emphasized">360</integer>
+</resources>
