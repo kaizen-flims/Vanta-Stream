@@ -1,35 +1,36 @@
 package com.lagradost.cloudstream3.ui.boot
 
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.Choreographer
 import android.view.Gravity
-import android.view.View
-import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
-import androidx.core.animation.doOnEnd
 import com.lagradost.cloudstream3.R
 import com.lagradost.cloudstream3.ui.account.AccountSelectActivity
+import kotlin.math.min
 
 /**
- * Vanta's dedicated cold-start presentation layer.
+ * Vanta cold-start presentation.
  *
- * The boot choreography is intentionally authored on a 60 fps timeline.
- * Normal application motion remains display-refresh-native.
- *
- * Branding artwork is kept in a replaceable drawable slot so the locked
- * VANTA Speed master can be dropped in without changing launch routing.
+ * This screen intentionally updates visual state on a 60 fps cadence
+ * (16.67 ms). All normal Vanta UI motion remains display-refresh-native.
  */
-class VantaBootActivity : Activity() {
+class VantaBootActivity : Activity(), Choreographer.FrameCallback {
     companion object {
-        private const val BOOT_DURATION_MS = 900L
-        private const val WORDMARK_REVEAL_MS = 420L
-        private const val HOLD_MS = 180L
+        private const val FRAME_60_NS = 16_666_667L
+        private const val STREAK_END_MS = 260f
+        private const val RESOLVE_END_MS = 680f
+        private const val FINISH_MS = 860f
     }
+
+    private lateinit var streaks: ImageView
+    private lateinit var wordmark: ImageView
+    private var startNs = 0L
+    private var lastRenderedNs = Long.MIN_VALUE
+    private var forwarded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,23 +38,17 @@ class VantaBootActivity : Activity() {
         window.statusBarColor = Color.BLACK
         window.navigationBarColor = Color.BLACK
 
-        val root = FrameLayout(this).apply {
-            setBackgroundColor(Color.BLACK)
-        }
+        val root = FrameLayout(this).apply { setBackgroundColor(Color.BLACK) }
 
-        val streaks = ImageView(this).apply {
+        streaks = ImageView(this).apply {
             setImageResource(R.drawable.vanta_boot_streaks)
             scaleType = ImageView.ScaleType.CENTER_INSIDE
             alpha = 0f
-            translationX = -96f
         }
-
-        val wordmark = ImageView(this).apply {
+        wordmark = ImageView(this).apply {
             setImageResource(R.drawable.vanta_wordmark_speed)
             scaleType = ImageView.ScaleType.CENTER_INSIDE
             alpha = 0f
-            scaleX = 0.985f
-            scaleY = 0.985f
         }
 
         val lp = FrameLayout.LayoutParams(
@@ -69,45 +64,56 @@ class VantaBootActivity : Activity() {
         root.addView(wordmark, lp)
         setContentView(root)
 
-        val streakIn = AnimatorSet().apply {
-            playTogether(
-                ObjectAnimator.ofFloat(streaks, View.ALPHA, 0f, 1f),
-                ObjectAnimator.ofFloat(streaks, View.TRANSLATION_X, -96f, 0f)
-            )
-            duration = 260L
-            interpolator = DecelerateInterpolator(1.8f)
-        }
-
-        val resolve = AnimatorSet().apply {
-            playTogether(
-                ObjectAnimator.ofFloat(wordmark, View.ALPHA, 0f, 1f),
-                ObjectAnimator.ofFloat(wordmark, View.SCALE_X, 0.985f, 1f),
-                ObjectAnimator.ofFloat(wordmark, View.SCALE_Y, 0.985f, 1f),
-                // Excess streaks continue beneath the wordmark and vanish.
-                ObjectAnimator.ofFloat(streaks, View.TRANSLATION_X, 0f, 54f),
-                ObjectAnimator.ofFloat(streaks, View.ALPHA, 1f, 0f)
-            )
-            duration = WORDMARK_REVEAL_MS
-            interpolator = DecelerateInterpolator(2.2f)
-        }
-
-        AnimatorSet().apply {
-            playSequentially(streakIn, resolve)
-            startDelay = 40L
-            doOnEnd {
-                root.postDelayed({ forwardToApp() }, HOLD_MS)
-            }
-            start()
-        }
-
-        // Safety valve. Boot presentation must never trap the user.
-        root.postDelayed({
-            if (!isFinishing) forwardToApp()
-        }, BOOT_DURATION_MS + 250L)
+        Choreographer.getInstance().postFrameCallback(this)
     }
 
+    override fun doFrame(frameTimeNanos: Long) {
+        if (startNs == 0L) startNs = frameTimeNanos
+
+        // Choreographer may callback at 90/120/144 Hz. Only mutate boot visuals
+        // when the 60 Hz frame interval has elapsed.
+        if (lastRenderedNs == Long.MIN_VALUE || frameTimeNanos - lastRenderedNs >= FRAME_60_NS) {
+            lastRenderedNs = frameTimeNanos
+            renderFrame((frameTimeNanos - startNs) / 1_000_000f)
+        }
+
+        if (!forwarded) Choreographer.getInstance().postFrameCallback(this)
+    }
+
+    private fun renderFrame(ms: Float) {
+        when {
+            ms <= STREAK_END_MS -> {
+                val t = easeOut(ms / STREAK_END_MS)
+                streaks.alpha = t
+                streaks.translationX = lerp(-96f, 0f, t)
+                wordmark.alpha = 0f
+            }
+            ms <= RESOLVE_END_MS -> {
+                val t = easeOut((ms - STREAK_END_MS) / (RESOLVE_END_MS - STREAK_END_MS))
+                wordmark.alpha = t
+                val scale = lerp(0.985f, 1f, t)
+                wordmark.scaleX = scale
+                wordmark.scaleY = scale
+
+                // Streaks continue underneath the resolving artwork, then disappear.
+                streaks.translationX = lerp(0f, 54f, t)
+                streaks.alpha = 1f - t
+            }
+            ms >= FINISH_MS -> forwardToApp()
+        }
+    }
+
+    private fun easeOut(value: Float): Float {
+        val t = min(1f, value.coerceAtLeast(0f))
+        val inv = 1f - t
+        return 1f - inv * inv * inv
+    }
+
+    private fun lerp(from: Float, to: Float, t: Float) = from + (to - from) * t
+
     private fun forwardToApp() {
-        if (isFinishing) return
+        if (forwarded || isFinishing) return
+        forwarded = true
 
         val next = Intent(this, AccountSelectActivity::class.java).apply {
             action = intent.action
@@ -120,5 +126,10 @@ class VantaBootActivity : Activity() {
         startActivity(next)
         finish()
         overridePendingTransition(0, 0)
+    }
+
+    override fun onDestroy() {
+        Choreographer.getInstance().removeFrameCallback(this)
+        super.onDestroy()
     }
 }
