@@ -13,7 +13,7 @@
     android:elevation="0dp"
     android:foreground="@drawable/outline_drawable"
     app:cardBackgroundColor="@color/vanta_surface"
-    app:cardCornerRadius="@dimen/rounded_image_radius">
+    app:cardCornerRadius="@dimen/vanta_radius_small">
 
     <ImageView
         android:id="@+id/imageView"
