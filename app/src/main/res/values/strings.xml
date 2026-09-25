@@ -29,6 +29,12 @@
     <string name="duration_format" formatted="true">%d min</string>
     <string name="app_name">Vanta</string>
     <string name="play_with_app_name">Play with Vanta</string>
+    <string name="about_vanta">About Vanta</string>
+    <string name="about_vanta_summary">Version, source, attribution and license</string>
+    <string name="about_vanta_body" formatted="true">Vanta Stream %1$s is an independent GNU GPL v3 fork of CloudStream/reCloudStream. The upstream contributors retain credit for the original engine, while Vanta provides its own product identity and presentation layer.</string>
+    <string name="vanta_source_code">Vanta source code</string>
+    <string name="upstream_credits">CloudStream/reCloudStream credits</string>
+    <string name="gnu_gpl_v3">GNU GPL v3 license</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_downloads">Downloads</string>
@@ -586,7 +592,7 @@
     <string name="battery_dialog_title">Disable Battery optimization</string>
     <string name="battery_dialog_message">To ensure uninterrupted downloads and notifications for subscribed
         TV shows, Vanta needs permission to run in background. By pressing "OK", you\'ll be shown a request dialog.
-        Please press \'Allow\'.\n\nPlease note, this permission does not mean CS3 will drain your battery. It will only operate in the background when necessary, such as
+        Please press \'Allow\'.\n\nPlease note, this permission does not mean Vanta will drain your battery. It will only operate in the background when necessary, such as
         when receiving notifications or downloading videos from official extensions.</string>
     <string name="app_unrestricted_toast">App battery usage is already set to unrestricted</string>
     <string name="app_info_intent_error">Unable to open Vanta\'s App info.</string>

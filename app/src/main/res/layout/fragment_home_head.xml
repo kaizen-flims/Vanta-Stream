@@ -35,12 +35,12 @@
             android:paddingHorizontal="0dp">
 
 
-            <androidx.appcompat.widget.SearchView
+            <com.lagradost.cloudstream3.ui.vanta.VantaGlassSearchView
                 android:id="@+id/home_search"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="@dimen/vanta_space_2"
-                android:background="@drawable/vanta_glass_control"
+                android:background="@null"
                 android:layout_weight="1"
                 android:editTextColor="@color/white"
                 android:gravity="center_vertical"
@@ -56,17 +56,16 @@
                 app:searchIcon="@drawable/search_icon"
                 tools:ignore="RtlSymmetry" />
 
-            <LinearLayout
+            <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
                 android:id="@+id/home_head_profile_padding"
                 android:layout_width="@dimen/vanta_control_height"
                 android:layout_height="@dimen/vanta_control_height"
-                android:background="@drawable/vanta_glass_control"
+                android:background="@null"
                 android:clickable="true"
                 android:focusable="true"
                 android:foreground="@drawable/rounded_select_ripple"
                 android:gravity="center"
-                android:nextFocusLeft="@id/home_search"
-                android:orientation="horizontal">
+                android:nextFocusLeft="@id/home_search">
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/home_head_profile_card"
@@ -86,7 +85,7 @@
                         android:scaleType="centerCrop"
                         tools:src="@drawable/profile_bg_orange" />
                 </androidx.cardview.widget.CardView>
-            </LinearLayout>
+            </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
         </LinearLayout>
 
         <!--

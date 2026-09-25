@@ -22,12 +22,14 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ProvideTextStyle
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.rememberSearchBarState
@@ -61,6 +63,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.lagradost.cloudstream3.BuildConfig
+import com.lagradost.cloudstream3.CloudStreamApp
 import com.lagradost.cloudstream3.CommonActivity.activity
 import com.lagradost.cloudstream3.R
 import com.lagradost.cloudstream3.utils.DataStoreHelper
@@ -180,6 +183,7 @@ object SettingsFragmentScreen : Screen {
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun Content() {
         val textFieldState = rememberTextFieldState()
+        var showAbout by remember { mutableStateOf(false) }
 
         val outerListState = rememberScrollState()
 
@@ -266,11 +270,16 @@ object SettingsFragmentScreen : Screen {
                             screens.forEach { settingsTab ->
                                 SettingsTab(settingsTab)
                             }
+                            AboutTab(onClick = { showAbout = true })
                             BuildStamp()
                         }
                     })
 
             }
+        }
+
+        if (showAbout) {
+            AboutVantaDialog(onDismiss = { showAbout = false })
         }
     }
 
@@ -392,6 +401,68 @@ object SettingsFragmentScreen : Screen {
                 SearchableSettings.highlightKey = null
                 activity?.navigate(settingsTab.navigation)
             })
+    }
+
+    @Composable
+    fun AboutTab(onClick: () -> Unit) {
+        TextPreferenceWidget(
+            title = stringResource(R.string.about_vanta),
+            icon = painterResource(R.drawable.description_24px),
+            subtitle = stringResource(R.string.about_vanta_summary),
+            onPreferenceClick = onClick,
+        )
+    }
+
+    @Composable
+    fun AboutVantaDialog(onDismiss: () -> Unit) {
+        AlertDialog(
+            onDismissRequest = onDismiss,
+            title = { Text(stringResource(R.string.about_vanta)) },
+            text = {
+                Column {
+                    Text(
+                        text = stringResource(
+                            R.string.about_vanta_body,
+                            BuildConfig.VERSION_NAME,
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                    )
+                    Spacer(modifier = Modifier.height(MaterialTheme.padding.small))
+                    TextButton(
+                        onClick = {
+                            CloudStreamApp.openBrowser(
+                                "https://github.com/kaizen-flims/Vanta-Stream"
+                            )
+                        },
+                    ) {
+                        Text(stringResource(R.string.vanta_source_code))
+                    }
+                    TextButton(
+                        onClick = {
+                            CloudStreamApp.openBrowser(
+                                "https://github.com/recloudstream/cloudstream"
+                            )
+                        },
+                    ) {
+                        Text(stringResource(R.string.upstream_credits))
+                    }
+                    TextButton(
+                        onClick = {
+                            CloudStreamApp.openBrowser(
+                                "https://github.com/kaizen-flims/Vanta-Stream/blob/master/LICENSE"
+                            )
+                        },
+                    ) {
+                        Text(stringResource(R.string.gnu_gpl_v3))
+                    }
+                }
+            },
+            confirmButton = {
+                TextButton(onClick = onDismiss) {
+                    Text(stringResource(R.string.ok))
+                }
+            },
+        )
     }
 
     @Composable

@@ -8,7 +8,7 @@
     android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|keyboard|navigation"
     android:paddingTop="0dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.lagradost.cloudstream3.ui.vanta.VantaBackdropLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/vanta_background">
@@ -35,12 +35,12 @@
                               app:labelVisibilityMode="unlabeled"
 
                   -->
-        <com.google.android.material.bottomnavigation.BottomNavigationView
+        <com.lagradost.cloudstream3.ui.vanta.VantaGlassBottomNavigationView
             android:id="@+id/nav_view"
             android:layout_height="@dimen/nav_view_height"
             android:layout_width="0dp"
             app:labelVisibilityMode="unlabeled"
-            android:background="@drawable/vanta_glass_control"
+            android:background="@null"
             android:layout_marginStart="@dimen/vanta_space_3"
             android:layout_marginEnd="@dimen/vanta_space_3"
             android:layout_marginBottom="@dimen/vanta_space_2"
@@ -86,5 +86,5 @@
                 app:customCastBackgroundColor="?attr/primaryGrayBackground"
                 tools:ignore="FragmentTagUsage" />
         </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.lagradost.cloudstream3.ui.vanta.VantaBackdropLayout>
 </FrameLayout>

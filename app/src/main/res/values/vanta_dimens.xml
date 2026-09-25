@@ -15,6 +15,7 @@
     <dimen name="vanta_radius_large">24dp</dimen>
     <dimen name="vanta_radius_pill">32dp</dimen>
     <dimen name="vanta_glass_stroke">1dp</dimen>
+    <dimen name="vanta_glass_blur_radius">22dp</dimen>
     <dimen name="vanta_control_height">52dp</dimen>
     <dimen name="vanta_nav_height">64dp</dimen>
 </resources>
