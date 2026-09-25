@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="?attr/primaryGrayBackground"
+    android:background="@color/vanta_background"
     android:layout_height="match_parent">
 
     <ImageView
@@ -15,7 +15,7 @@
     <View
         android:id="@+id/title_shadow_top"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="180dp"
         android:layout_gravity="top"
         android:alpha="1"
         android:background="@drawable/background_shadow"
@@ -25,7 +25,7 @@
     <View
         android:id="@+id/title_shadow"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="360dp"
         android:layout_gravity="bottom"
         android:background="@drawable/background_shadow" />
 
@@ -33,13 +33,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="@dimen/vanta_space_6"
+        android:layout_marginEnd="@dimen/vanta_space_6"
+        android:layout_marginBottom="112dp"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/home_preview_logo"
-            android:layout_width="260dp"
-            android:layout_height="80dp"
+            android:layout_width="280dp"
+            android:layout_height="88dp"
             android:layout_gravity="center_horizontal|bottom"
             android:scaleType="fitCenter"
             android:paddingBottom="10dp"
@@ -54,7 +56,8 @@
             android:paddingHorizontal="30dp"
             android:paddingBottom="10dp"
             android:textColor="?attr/white"
-            android:textSize="17sp"
+            android:textSize="20sp"
+            android:fontFamily="@font/google_sans"
             android:textStyle="bold"
             tools:text="The Perfect Run" />
         <!--<TextView
@@ -65,7 +68,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="@color/white"
-            android:textSize="14sp"
+            android:textSize="13sp"
+            android:textColor="@color/vanta_text_secondary"
             tools:text="5 seasons 50 episodes" />-->
         <TextView
             android:id="@+id/home_scroll_preview_tags"
