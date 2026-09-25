@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Vanta core -->
+    <color name="vanta_black">#000000</color>
+    <color name="vanta_background">#080808</color>
+    <color name="vanta_surface">#101010</color>
+    <color name="vanta_surface_elevated">#181818</color>
+    <color name="vanta_red">#E50914</color>
+    <color name="vanta_red_pressed">#B20710</color>
+    <color name="vanta_text_primary">#F5F5F7</color>
+    <color name="vanta_text_secondary">#A1A1A6</color>
+
+    <!-- Liquid Glass palette. These are ingredients, not a fake blur implementation. -->
+    <color name="vanta_glass_fill">#24FFFFFF</color>
+    <color name="vanta_glass_fill_pressed">#34FFFFFF</color>
+    <color name="vanta_glass_border">#40FFFFFF</color>
+    <color name="vanta_glass_border_soft">#1FFFFFFF</color>
+    <color name="vanta_glass_shadow">#66000000</color>
+    <color name="vanta_glass_specular">#73FFFFFF</color>
+</resources>
