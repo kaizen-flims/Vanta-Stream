@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/vanta_background">
 
         <com.google.android.material.navigationrail.NavigationRailView
             android:id="@+id/nav_rail_view"
