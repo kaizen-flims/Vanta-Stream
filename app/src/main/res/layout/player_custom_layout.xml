@@ -480,7 +480,7 @@
                         tools:ignore="ContentDescription" />
                 </FrameLayout>
 
-                <FrameLayout
+                <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
                     android:id="@+id/player_pause_play_holder_holder"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -505,7 +505,7 @@
                         android:src="@drawable/netflix_pause"
                         app:tint="@color/white"
                         tools:ignore="ContentDescription" />
-                </FrameLayout>
+                </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
 
                 <FrameLayout
                     android:id="@+id/player_ffwd_holder"
@@ -842,19 +842,28 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <HorizontalScrollView
-                    android:id="@+id/player_controls_scroll"
+                <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/vanta_space_1"
+                    android:paddingStart="@dimen/vanta_space_1"
+                    android:paddingEnd="@dimen/vanta_space_1">
 
-                    <LinearLayout
+                    <HorizontalScrollView
+                        android:id="@+id/player_controls_scroll"
                         android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/player_lock"
@@ -948,9 +957,10 @@
                                 android:text="@string/next_episode"
                                 app:icon="@drawable/ic_baseline_skip_next_24" />
 
+                            </LinearLayout>
                         </LinearLayout>
-                    </LinearLayout>
-                </HorizontalScrollView>
+                    </HorizontalScrollView>
+                </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
