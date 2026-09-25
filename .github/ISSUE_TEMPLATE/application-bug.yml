@@ -1,5 +1,5 @@
 name: 🐞 Application Issue Report
-description: Report a issue in CloudStream
+description: Report an issue in Vanta
 labels: [bug]
 body:
 
@@ -37,11 +37,11 @@ body:
       required: true
 
   - type: input
-    id: cloudstream-version
+    id: vanta-version
     attributes:
-      label: Cloudstream version and commit hash
+      label: Vanta version and commit hash
       description: |
-        You can find your Cloudstream version in **Settings**. Commit hash is the 7 character string next to the version.
+        You can find your Vanta version in **Settings**. The commit hash is the 7-character string next to the version.
       placeholder: |
         Example: "2.8.16 a49f466"
     validations:
@@ -86,7 +86,7 @@ body:
           required: true
         - label: I have written a short but informative title.
           required: true
-        - label: I have updated the app to pre-release version **[Latest](https://github.com/recloudstream/cloudstream/releases)**.
+        - label: I have updated the app to the latest **[Vanta release](https://github.com/kaizen-flims/Vanta-Stream/releases)**.
           required: true
         - label: I will fill out all of the requested information in this form.
           required: true

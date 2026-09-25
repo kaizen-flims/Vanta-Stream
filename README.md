@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="app/src/main/res/drawable-nodpi/vanta_wordmark_speed.png" alt="Vanta" width="520" />
+</p>
+
 # Vanta Stream
 
 **Vanta Stream** is an Android streaming interface project focused on a cinematic, modern experience with fluid motion, a dark visual system, and selective Liquid Glass interactions.
