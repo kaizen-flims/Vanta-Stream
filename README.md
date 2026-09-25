@@ -1,111 +1,73 @@
-# CloudStream
+# Vanta Stream
 
-**⚠️ Warning: By default, this app doesn't provide any video sources; you have to install extensions to add functionality to the app.**
+**Vanta Stream** is an Android streaming interface project focused on a cinematic, modern experience with fluid motion, a dark visual system, and selective Liquid Glass interactions.
 
-[![Discord](https://invidget.switchblade.xyz/5Hus6fM)](https://discord.gg/5Hus6fM)
+Vanta is being developed as a heavily redesigned fork of CloudStream, with the goal of preserving the flexible extension-driven foundation while rebuilding the product experience around a new identity and interface.
 
+> Vanta Stream does not provide or host video sources by default. Functionality depends on user-installed extensions and sources.
 
-## Table of Contents: 
-+ [About Us:](#about_us)
-+ [Installation Steps:](#install_rules)
-+ [Contributing:](#contributing)
-+ [Issues:](#issues)
-  + [Bugs Reports:](#bug_report)
-  + [Enhancement:](#enhancment)
-+ [Extension Development:](#extensions)
-+ [Language Support:](#languages)
-+ [Further Sources](#contact_and_sources)
+## Vision
 
+Vanta is designed around a few core principles:
 
-<a id="about_us"></a>
+- Cinematic, content-first browsing
+- Black-first visual language with a red accent
+- Liquid Glass used selectively for controls, navigation, sheets, and interactive surfaces
+- Glass that visually reacts to the content beneath it rather than behaving like simple transparency
+- Smooth, display-refresh-native animation with support for 60 Hz, 90 Hz, 120 Hz, and higher refresh-rate displays where available
+- Responsive Android phone and TV experiences
+- A clean separation between the streaming engine and the Vanta presentation layer
 
-## About us: 
+The aim is not to turn every surface into glass. Posters, rails, artwork, titles, and primary content should stay clean and readable while interactive UI receives the richer treatment.
 
-**CloudStream is a media center that prioritizes and emphasizes complete freedom and flexibility for users and developers.** 
+## Current Status
 
-CloudStream is an extension-based multimedia player with tracking support. There are extensions to view videos from: 
+Vanta Stream is in active development.
 
-+ [Librevox (audio-books)](https://librivox.org/) 
-+ [Youtube](https://www.youtube.com/)
-+ [Twitch](https://www.twitch.tv/)
-+ [iptv-org (A collection of publicly available IPTV (Internet Protocol television) channels from all over the world.)](https://github.com/iptv-org/iptv) 
-+ [nginx](https://nginx.org/)
-+ And more... 
+The project currently retains the upstream CloudStream foundation while the interface, branding, motion system, and component architecture are progressively redesigned.
 
+Expect breaking visual changes while the Vanta design system is being built.
 
-**Please don't create illegal extensions or use any that host any copyrighted media.** For more details about our stance on the DMCA and EUCD, you can read about it on our organization: [reCloudStream](https://github.com/recloudstream)
+## Planned UI System
 
-#### Important Copyright Note: 
+The Vanta interface will gradually introduce reusable native components such as:
 
-Our documentation is unmaintained and open to contributions; therefore, apps and sources, extensions in recommended sources, and recommended apps are not officially moderated or endorsed by CloudStream; if you or another copyright owner identify an extension that breaches your copyright, please let us know. 
+- Vanta Glass Surface
+- Vanta Glass Button
+- Vanta Glass Navigation
+- Vanta Glass Sheets and dialogs
+- Media-focused hero sections
+- Cinematic horizontal content rails
+- Redesigned search and library experiences
+- Redesigned playback controls
 
+Performance is a first-class requirement. Expensive effects such as blur, refraction, and backdrop processing should be implemented carefully so the UI can remain fluid across different device classes.
 
-#### Features:
-+ **AdFree**, No ads whatsoever
-+ No tracking/analytics
-+ Bookmarks
-+ Phone and TV support
-+ Chromecast
-+ Extension system for personal customization
+## Extensions
 
+Vanta inherits CloudStream's extension-oriented architecture.
 
-<a id="install_rules"></a>
+Please respect copyright law and the terms of the services you access. Do not create or distribute extensions intended to unlawfully host or distribute copyrighted media.
 
-## Installation: 
+## Credits
 
-Our documentation provides the steps to install and configure CloudStream for your streaming needs.
+Vanta Stream is built on top of the excellent open-source work of the **CloudStream / reCloudStream contributors**.
 
-[Getting Started With CloudStream:](https://recloudstream.github.io/csdocs/)
+Upstream project:
+https://github.com/recloudstream/cloudstream
 
-<a id="contributing"></a>
+A huge thank you to everyone who has contributed to CloudStream and its ecosystem. Vanta would not exist without that foundation.
 
-## Contributing:
-We **happily** accept any contributions to our project. To find out where you can start contributing towards the project, please look [at our issues tab](/cloudstream/issues)
+Vanta Stream is an independent fork and is not affiliated with or endorsed by the original CloudStream project.
 
+## License
 
+This project is derived from CloudStream and remains subject to the upstream project's **GNU General Public License v3.0 (GPL-3.0)**.
 
-<a id="issues"></a> 
- 
-### Issues: 
-While we **actively** accept issues and pull requests, we do require you fill out an [template](https://github.com/recloudstream/cloudstream/issues/new/choose) for issues. These include the following:
+See the repository's license file for the complete terms.
 
-<a id="bug_report"></a>
+---
 
-- [Bug Report Template: ](https://github.com/recloudstream/cloudstream/issues/new?assignees=&labels=bug&projects=&template=application-bug.yml)
-  - For bug reports, we want as much info as possible, including your downloaded version of CloudeStream, device and updated version (if possible, current API),
-    expected behavior of the program, and the actual behavior that the program did, most importantly we require clear, reproducible steps of the bug. If your bug can't be       reproduced, it is unlikely we'll work on your issue.
-    
-<a id="enhancment"></a>
-  
-- [Feature Request Template: ](https://github.com/recloudstream/cloudstream/issues/new?assignees=&labels=enhancement&projects=&template=feature-request.yml)
-  - Before adding a feature request, please check to see if a feature request already has been requested.  
+### Vanta
 
-
-### Extensions:
- 
-**Further details on creating extensions for CloudStream are found in our documentation.**
-
-[Guide: For Extension Developers](https://recloudstream.github.io/csdocs/devs/gettingstarted/) 
-
-<a id="contact_and_sources"></a>
-
-## Further Sources: 
-
-As well as providing clear install steps, our [website](https://dweb.link/ipns/cloudstream.on.fleek.co/) includes a wide variety of other tools, such as: 
-- [Troubleshooting](https://recloudstream.github.io/csdocs/troubleshooting/)
-- [Further CloudStream Repositories](https://recloudstream.github.io/csdocs/repositories/) 
-- Set-Up for other devices, such as:
-  - [Android TV](https://recloudstream.github.io/csdocs/other-devices/tv/)
-  - [Windows](https://recloudstream.github.io/csdocs/other-devices/windows/)
-  - [Linux](https://recloudstream.github.io/csdocs/other-devices/linux/)
-- And more...
-
-<a id="languages"> </a>  
-
-### Supported languages:
-
-Even if you can't contribute to the code or documentation, we always look for those who can contribute to translation and language support. Your contribution is exceptionally appreciated; you can check our translation from the figure below. 
-
-<a href="https://hosted.weblate.org/engage/cloudstream/">
-  <img src="https://hosted.weblate.org/widgets/cloudstream/-/app/multi-auto.svg" alt="Translation status" />
-</a>
+**Engine inherited. Experience rebuilt.**
