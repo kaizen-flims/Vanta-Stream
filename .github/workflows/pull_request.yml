@@ -32,10 +32,16 @@ jobs:
       run: ./gradlew library:checkKotlinAbi
 
     - name: Run Gradle
-      run: ./gradlew assemblePrereleaseDebug lint check
+      run: ./gradlew assemblePrereleaseDebug assembleStableDebug lint check
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v7
       with:
         name: pull-request-build
         path: "app/build/outputs/apk/prerelease/debug/*.apk"
+
+    - name: Upload stable debug APK
+      uses: actions/upload-artifact@v7
+      with:
+        name: stable-debug-crash-fix
+        path: "app/build/outputs/apk/stable/debug/*.apk"
