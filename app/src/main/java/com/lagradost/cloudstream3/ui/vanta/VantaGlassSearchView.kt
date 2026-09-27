@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.util.AttributeSet
 import androidx.appcompat.widget.SearchView
+import com.lagradost.cloudstream3.R
 
 /** Search control with a content-reactive Vanta glass background. */
 class VantaGlassSearchView @JvmOverloads constructor(
@@ -11,7 +12,7 @@ class VantaGlassSearchView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = androidx.appcompat.R.attr.searchViewStyle,
 ) : SearchView(context, attrs, defStyleAttr) {
-    private val glass = VantaGlassPainter(this)
+    private val glass = VantaGlassPainter(this, resources.getDimension(R.dimen.vanta_radius_pill))
 
     init {
         setWillNotDraw(false)

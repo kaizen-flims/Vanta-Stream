@@ -11,6 +11,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.lagradost.cloudstream3.R
 import com.lagradost.cloudstream3.ui.account.AccountSelectActivity
+import com.lagradost.cloudstream3.ui.vanta.VantaMotion
 import kotlin.math.min
 import kotlin.math.roundToInt
 
@@ -35,6 +36,7 @@ class VantaBootActivity : Activity(), Choreographer.FrameCallback {
     private var startNs = 0L
     private var lastLogicalFrame = -1L
     private var forwarded = false
+    private val revealBounds = Rect()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,6 +71,11 @@ class VantaBootActivity : Activity(), Choreographer.FrameCallback {
         root.addView(wordmark, lp)
         setContentView(root)
 
+        if (!VantaMotion.animationsEnabled(this)) {
+            wordmark.alpha = 1f
+            root.postDelayed(::forwardToApp, 350L)
+            return
+        }
         Choreographer.getInstance().postFrameCallback(this)
     }
 
@@ -98,19 +105,20 @@ class VantaBootActivity : Activity(), Choreographer.FrameCallback {
                 streaks.translationX = lerp(-180f, -8f, t)
                 streaks.scaleX = lerp(1.18f, 1f, t)
                 wordmark.alpha = 0f
-                wordmark.clipBounds = Rect(0, 0, 0, wordmark.height)
+                revealBounds.set(0, 0, 0, wordmark.height)
+                wordmark.clipBounds = revealBounds
             }
             ms <= RESOLVE_END_MS -> {
                 val t = easeOut((ms - STREAK_END_MS) / (RESOLVE_END_MS - STREAK_END_MS))
                 val artworkWidth = wordmark.width.coerceAtLeast(1)
                 val artworkHeight = wordmark.height.coerceAtLeast(1)
                 wordmark.alpha = 1f
-                wordmark.clipBounds = Rect(
-                    0,
-                    0,
+                revealBounds.set(
+                    0, 0,
                     (artworkWidth * t).roundToInt().coerceIn(0, artworkWidth),
                     artworkHeight
                 )
+                wordmark.clipBounds = revealBounds
                 wordmark.translationX = lerp(-18f, 0f, t)
 
                 // Streaks continue underneath the resolving artwork, then disappear.

@@ -1,6 +1,5 @@
 package com.lagradost.cloudstream3.ui.settings
 
-import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -31,10 +30,6 @@ import com.lagradost.cloudstream3.utils.UIHelper.toPx
 import com.lagradost.cloudstream4.compose.TV
 import com.lagradost.cloudstream4.compose.isLayout
 import com.lagradost.cloudstream4.rememberAppSettings
-import com.lagradost.cloudstream4.theme.CloudStreamPrimaryColor
-import com.lagradost.cloudstream4.theme.modeToTheme
-import com.lagradost.cloudstream4.theme.perfToColor
-import com.lagradost.cloudstream4.theme.perfToMode
 import com.mihon.presentation.settings.Preference
 import com.mihon.presentation.settings.SearchableSettings
 import kotlinx.collections.immutable.mutate
@@ -83,54 +78,6 @@ object SettingsUIScreen : SearchableSettings {
             Preference.PreferenceGroup(
                 title = stringResource(R.string.pref_category_looks),
                 preferenceItems = persistentListOf(
-                    Preference.PreferenceItem.ListPreference(
-                        preference = settings.ui.primaryColor,
-                        icon = painterResource(R.drawable.colors_24px),
-                        title = stringResource(R.string.primary_color_settings),
-                        entries = stringArrayResource(R.array.themes_overlay_names_values).zip(
-                            stringArrayResource(R.array.themes_overlay_names)
-                        ).toMap().toPersistentMap().mutate { map ->
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) { // remove monet on android 11 and less
-                                map.remove("Monet")
-                                map.remove("Monet2")
-                            }
-                        },
-                        iconProvider = { k, _ ->
-                            val color = perfToColor(k)
-                            RoundColor(color.color)
-                        },
-                        onValueChanged = { newValue ->
-                            settings.ui.primaryColor.set(newValue) // We need to set before we recreate
-                            safe {
-                                activity?.recreate()
-                            }
-                            return@ListPreference false
-                        }),
-                    Preference.PreferenceItem.ListPreference(
-                        preference = settings.ui.theme,
-                        icon = painterResource(R.drawable.palette_24px),
-                        title = stringResource(R.string.app_theme_settings),
-                        entries = stringArrayResource(R.array.themes_names_values).zip(
-                            stringArrayResource(R.array.themes_names)
-                        ).toMap().toPersistentMap().mutate { map ->
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) { // remove monet on android 11 and less
-                                map.remove("Monet")
-                            }
-                            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) { // Remove system on android 9 and less
-                                map.remove("System")
-                            }
-                        },
-                        iconProvider = { k, _ ->
-                            val theme = modeToTheme(perfToMode(k), CloudStreamPrimaryColor.NORMAL)
-                            RoundColor(theme.background)
-                        },
-                        onValueChanged = { newValue ->
-                            settings.ui.theme.set(newValue) // We need to set before we recreate
-                            safe {
-                                activity?.recreate()
-                            }
-                            return@ListPreference false
-                        }),
                     Preference.PreferenceItem.ListPreference(
                         preference = settings.ui.layout,
                         icon = painterResource(R.drawable.responsive_layout_24px),

@@ -16,6 +16,7 @@ import com.lagradost.cloudstream3.CommonActivity.showToast
 import com.lagradost.cloudstream3.R
 import com.lagradost.cloudstream3.mvvm.logError
 import com.lagradost.cloudstream3.ui.settings.SettingsFragment.Companion.setSystemBarsPadding
+import com.lagradost.cloudstream3.ui.vanta.applyVantaWindowGlass
 import com.lagradost.cloudstream3.utils.txt
 
 /**
@@ -212,6 +213,11 @@ abstract class BaseDialogFragment<T : ViewBinding>(
 ) : DialogFragment(), BaseFragmentHelper<T> {
     override var _binding: T? = null
 
+    override fun onStart() {
+        super.onStart()
+        dialog?.applyVantaWindowGlass()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -240,6 +246,11 @@ abstract class BaseBottomSheetDialogFragment<T : ViewBinding>(
     override val bindingCreator: BaseFragment.BindingCreator<T>
 ) : BottomSheetDialogFragment(), BaseFragmentHelper<T> {
     override var _binding: T? = null
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.applyVantaWindowGlass()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

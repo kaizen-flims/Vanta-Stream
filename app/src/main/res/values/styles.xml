@@ -8,7 +8,6 @@
         <item name="android:navigationBarColor">@color/vanta_black</item>
         <item name="android:statusBarColor">@color/vanta_black</item>
         <item name="android:windowLightStatusBar">false</item>
-        <item name="android:windowLightNavigationBar">false</item>
     </style>
 
     <!-- Base application theme. Material3 -->

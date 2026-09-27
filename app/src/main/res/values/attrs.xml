@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="VantaGlassSurface">
+        <attr name="vantaGlassCornerRadius" format="dimension" />
+        <attr name="vantaGlassElevation" format="dimension" />
+        <attr name="vantaGlassBackdropEnabled" format="boolean" />
+    </declare-styleable>
     <declare-styleable name="FlowLayout_Layout">
         <attr name="itemSpacing" format="dimension" />
     </declare-styleable>

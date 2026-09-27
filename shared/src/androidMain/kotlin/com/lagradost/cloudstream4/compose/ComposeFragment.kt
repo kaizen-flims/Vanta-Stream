@@ -12,8 +12,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import com.lagradost.cloudstream4.rememberAppSettings
 import com.lagradost.cloudstream4.theme.CloudStreamTheme
-import com.lagradost.cloudstream4.theme.perfToColor
-import com.lagradost.cloudstream4.theme.perfToMode
+import com.lagradost.cloudstream4.theme.CloudStreamPrimaryColor
+import com.lagradost.cloudstream4.theme.CloudStreamThemeMode
 import com.mihon.presentation.LocalBackPress
 import com.mihon.presentation.settings.collectAsState
 
@@ -27,14 +27,12 @@ fun Screen.createComposeView(
 
     setContent {
         val settings = rememberAppSettings()
-        val mode by settings.ui.theme.collectAsState()
-        val primaryColor by settings.ui.primaryColor.collectAsState()
         val layout by settings.ui.layout.collectAsState()
         val layoutFlag = DeviceLayout.layoutToFlag(LocalContext.current, layout)
 
         CloudStreamTheme(
-            mode = perfToMode(mode),
-            primaryColor = perfToColor(primaryColor),
+            mode = CloudStreamThemeMode.Amoled,
+            primaryColor = CloudStreamPrimaryColor.RED,
         ) {
             val backDispatcher = checkNotNull(LocalOnBackPressedDispatcherOwner.current) {
                 "No OnBackPressedDispatcherOwner was provided via LocalOnBackPressedDispatcherOwner"

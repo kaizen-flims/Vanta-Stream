@@ -17,4 +17,5 @@
     <color name="vanta_glass_border_soft">#1FFFFFFF</color>
     <color name="vanta_glass_shadow">#66000000</color>
     <color name="vanta_glass_specular">#73FFFFFF</color>
+    <color name="vanta_glass_window_fill">#D9141416</color>
 </resources>
