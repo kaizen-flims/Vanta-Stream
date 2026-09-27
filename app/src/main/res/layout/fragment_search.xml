@@ -29,21 +29,24 @@
 
             <ImageView
                 android:id="@+id/voice_search"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="@string/change_providers_img_des"
+                android:padding="12dp"
                 android:src="@drawable/ic_mic"
                 app:tint="?attr/textColor" />
 
-            <FrameLayout
+            <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/search_background"
-                android:visibility="visible">
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:background="@null"
+                android:visibility="visible"
+                app:vantaGlassCornerRadius="@dimen/vanta_radius_pill"
+                app:vantaGlassElevation="8dp">
 
                 <FrameLayout
                     android:layout_width="match_parent"
@@ -109,7 +112,7 @@
                     android:nextFocusDown="@id/search_autofit_results"
                     android:src="@drawable/ic_baseline_tune_24"
                     app:tint="?attr/textColor" />
-            </FrameLayout>
+            </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
         </LinearLayout>
 
         <include

@@ -32,12 +32,13 @@
 
             <ImageView
                 android:id="@+id/provider_selector"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="end|center_vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="8dp"
                 android:background="?selectableItemBackgroundBorderless"
                 android:contentDescription="@string/change_providers_img_des"
+                android:padding="12dp"
                 android:src="@drawable/ic_baseline_extension_24"
                 app:tint="?attr/textColor" />
 
@@ -55,13 +56,15 @@
                 app:tint="?attr/textColor"
                 tools:visibility="visible" />
 
-            <FrameLayout
+            <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
-                android:background="@drawable/search_background"
+                android:layout_height="48dp"
+                android:layout_margin="8dp"
+                android:background="@null"
                 android:visibility="visible"
-                app:layout_scrollFlags="scroll|enterAlways">
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:vantaGlassCornerRadius="@dimen/vanta_radius_pill"
+                app:vantaGlassElevation="8dp">
 
                 <androidx.appcompat.widget.SearchView
                     android:id="@+id/main_search"
@@ -101,7 +104,7 @@
                     android:src="@drawable/ic_baseline_filter_list_24"
                     app:tint="?attr/textColor" />
 
-            </FrameLayout>
+            </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
         </LinearLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -188,25 +191,37 @@
             tools:ignore="ContentDescription" />
     </FrameLayout>
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/library_tab_layout"
-        style="@style/Theme.Widget.Tabs"
+    <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="56dp"
         android:layout_gravity="bottom"
-        android:background="?attr/primaryGrayBackground"
-        android:focusable="true"
-        android:paddingHorizontal="5dp"
-        app:layout_scrollFlags="noScroll"
-        app:tabGravity="center"
-        app:tabIndicator="@drawable/indicator_background"
-        app:tabIndicatorColor="?attr/white"
-        app:tabIndicatorGravity="center"
-        app:tabIndicatorHeight="30dp"
-        app:tabMode="scrollable"
-        app:tabRippleColor="?attr/textColor"
-        app:tabSelectedTextColor="?attr/primaryBlackBackground"
-        app:tabTextAppearance="@style/TabNoCaps"
-        app:tabTextColor="?attr/textColor" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@null"
+        app:vantaGlassCornerRadius="@dimen/vanta_radius_large"
+        app:vantaGlassElevation="12dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/library_tab_layout"
+            style="@style/Theme.Widget.Tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+            android:focusable="true"
+            android:paddingHorizontal="5dp"
+            app:layout_scrollFlags="noScroll"
+            app:tabGravity="center"
+            app:tabIndicator="@drawable/indicator_background"
+            app:tabIndicatorColor="@color/vanta_red"
+            app:tabIndicatorGravity="center"
+            app:tabIndicatorHeight="32dp"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@color/vanta_red"
+            app:tabSelectedTextColor="@color/vanta_text_primary"
+            app:tabTextAppearance="@style/TabNoCaps"
+            app:tabTextColor="@color/vanta_text_secondary" />
+    </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -6,13 +6,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <FrameLayout
+    <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
             android:id="@+id/result_top_bar"
-            android:background="?attr/primaryGrayBackground"
+            android:background="@null"
             android:paddingStart="@dimen/result_padding"
             android:paddingEnd="@dimen/result_padding"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="8dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:vantaGlassCornerRadius="@dimen/vanta_radius_large"
+            app:vantaGlassElevation="10dp">
         <LinearLayout
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
@@ -177,7 +182,7 @@
                     android:contentDescription="@string/result_open_in_browser"
                     app:tint="?attr/textColor" />
         </LinearLayout>
-    </FrameLayout>
+    </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
 
     <FrameLayout
             android:visibility="gone"
