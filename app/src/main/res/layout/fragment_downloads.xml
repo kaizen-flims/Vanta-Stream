@@ -17,14 +17,21 @@
         For Scroll add to LinearLayout
         app:layout_scrollFlags="scroll|enterAlways"
         -->
-        <LinearLayout
+        <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
             android:id="@+id/download_delete_appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="?attr/primaryGrayBackground"
-            android:padding="8dp"
-            android:visibility="gone">
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:visibility="gone"
+            app:vantaGlassCornerRadius="@dimen/vanta_radius_large"
+            app:vantaGlassElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
 
             <ImageButton
                 android:id="@+id/btnCancel"
@@ -44,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackground"
                 android:text="@string/delete"
-                android:textColor="?attr/white"
+                android:textColor="@color/vanta_red"
                 android:layout_gravity="center_vertical" />
 
             <TextView
@@ -71,20 +78,28 @@
                 android:textColor="?attr/white"
                 android:layout_marginEnd="8dp"
                 android:nextFocusDown="@id/download_list" />
-        </LinearLayout>
+            </LinearLayout>
+        </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
 
-        <LinearLayout
+        <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
             android:id="@+id/download_appbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/primaryGrayBackground"
-            android:baselineAligned="false"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@null"
             android:focusable="true"
             android:foreground="@drawable/outline_drawable"
             android:nextFocusLeft="@id/navigation_downloads"
             android:nextFocusRight="@id/download_stream_button_tv"
             android:nextFocusDown="@id/download_list"
-            android:orientation="horizontal">
+            app:vantaGlassCornerRadius="@dimen/vanta_radius_large"
+            app:vantaGlassElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/download_storage_appbar"
@@ -263,7 +278,8 @@
                     android:src="@drawable/ic_network_stream"
                     app:tint="?attr/textColor" />
             </LinearLayout>
-        </LinearLayout>
+            </LinearLayout>
+        </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
@@ -312,16 +328,26 @@
             android:tag="@string/tv_no_focus_tag"
             tools:listitem="@layout/download_header_episode" />
 
-        <LinearLayout
+        <com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface
             android:focusable="true"
             android:nextFocusUp="@id/download_list"
             android:foreground="@drawable/outline_drawable"
             android:id="@+id/download_queue_button"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="58dp"
             android:layout_gravity="bottom"
-            android:background="?attr/primaryGrayBackground"
-            android:orientation="vertical">
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@null"
+            app:vantaGlassCornerRadius="@dimen/vanta_radius_large"
+            app:vantaGlassElevation="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="vertical">
 
             <ImageView
                 android:paddingTop="5dp"
@@ -338,7 +364,8 @@
                 android:text="@string/download_queue"
                 android:textColor="?attr/textColor" />
 
-        </LinearLayout>
+            </LinearLayout>
+        </com.lagradost.cloudstream3.ui.vanta.VantaGlassSurface>
 
         <TextView
             android:id="@+id/text_no_downloads"
@@ -366,7 +393,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="?attr/primaryGrayBackground"
+            android:backgroundTint="@color/vanta_red"
             android:contentDescription="@string/open_local_video"
             android:src="@drawable/netflix_play"
             app:tint="?attr/textColor"
@@ -375,6 +402,7 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/download_stream_button"
             style="@style/ExtendedFloatingActionButton"
+            android:backgroundTint="@color/vanta_red"
             android:contentDescription="@string/stream"
             android:text="@string/stream"
             android:textColor="?attr/textColor"
