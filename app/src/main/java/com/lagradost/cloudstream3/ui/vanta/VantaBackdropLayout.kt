@@ -9,6 +9,7 @@ import android.graphics.RuntimeShader
 import android.graphics.Shader
 import android.os.Build
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -31,12 +32,30 @@ class VantaBackdropLayout @JvmOverloads constructor(
     override var isRecordingVantaBackdrop: Boolean = false
         private set
 
-    private val renderer: BackdropRenderer? = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        Api31BackdropRenderer(
-            blurRadiusPx = resources.getDimension(R.dimen.vanta_glass_blur_radius)
-        )
-    } else {
-        null
+    private var renderer: BackdropRenderer? = createRenderer()
+
+    private fun createRenderer(): BackdropRenderer? {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) return null
+
+        return try {
+            Api31BackdropRenderer(
+                blurRadiusPx = resources.getDimension(R.dimen.vanta_glass_blur_radius)
+            )
+        } catch (error: Throwable) {
+            Log.w(TAG, "GPU backdrop unavailable; using the opaque Vanta fallback", error)
+            null
+        }
+    }
+
+    private fun disableRenderer(error: Throwable) {
+        Log.w(TAG, "GPU backdrop failed; disabling it for this activity", error)
+        val failedRenderer = renderer
+        renderer = null
+        try {
+            failedRenderer?.release()
+        } catch (releaseError: Throwable) {
+            Log.w(TAG, "Unable to release the failed GPU backdrop", releaseError)
+        }
     }
 
     override fun dispatchDraw(canvas: Canvas) {
@@ -45,6 +64,8 @@ class VantaBackdropLayout @JvmOverloads constructor(
                 isRecordingVantaBackdrop = true
                 try {
                     renderer?.record(this, source)
+                } catch (error: Throwable) {
+                    disableRenderer(error)
                 } finally {
                     isRecordingVantaBackdrop = false
                 }
@@ -55,12 +76,27 @@ class VantaBackdropLayout @JvmOverloads constructor(
 
     override fun drawVantaBackdrop(canvas: Canvas, consumer: View): Boolean {
         if (!canvas.isHardwareAccelerated || !consumer.isShown) return false
-        return renderer?.drawInto(this, canvas, consumer) == true
+        return try {
+            renderer?.drawInto(this, canvas, consumer) == true
+        } catch (error: Throwable) {
+            disableRenderer(error)
+            false
+        }
     }
 
     override fun onDetachedFromWindow() {
-        renderer?.release()
+        try {
+            renderer?.release()
+        } catch (error: Throwable) {
+            Log.w(TAG, "Unable to release the GPU backdrop", error)
+        } finally {
+            renderer = null
+        }
         super.onDetachedFromWindow()
+    }
+
+    private companion object {
+        const val TAG = "VantaBackdrop"
     }
 }
 
@@ -116,11 +152,14 @@ private class Api31BackdropRenderer(
 
         renderNode.setPosition(0, 0, host.width, host.height)
         val recordingCanvas = renderNode.beginRecording(host.width, host.height)
-        val save = recordingCanvas.save()
-        recordingCanvas.translate(sourceLeft.toFloat(), sourceTop.toFloat())
-        source.draw(recordingCanvas)
-        recordingCanvas.restoreToCount(save)
-        renderNode.endRecording()
+        try {
+            val save = recordingCanvas.save()
+            recordingCanvas.translate(sourceLeft.toFloat(), sourceTop.toFloat())
+            source.draw(recordingCanvas)
+            recordingCanvas.restoreToCount(save)
+        } finally {
+            renderNode.endRecording()
+        }
     }
 
     override fun drawInto(host: View, canvas: Canvas, consumer: View): Boolean {
@@ -174,7 +213,7 @@ private object Api33GlassEffect {
         val shader = RuntimeShader(GLASS_SHADER)
         val refraction = RenderEffect.createRuntimeShaderEffect(shader, "content")
         RenderEffect.createChainEffect(refraction, blur)
-    } catch (_: RuntimeException) {
+    } catch (_: Throwable) {
         blur
     }
 }
