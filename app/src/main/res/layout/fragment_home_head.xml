@@ -136,6 +136,7 @@
                 android:background="@drawable/vanta_primary_control"
                 android:textColor="@color/vanta_text_primary"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:text="@string/home_play"
                 app:icon="@drawable/ic_baseline_play_arrow_24" />
