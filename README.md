@@ -24,17 +24,17 @@ Vanta is designed around a few core principles:
 
 The aim is not to turn every surface into glass. Posters, rails, artwork, titles, and primary content should stay clean and readable while interactive UI receives the richer treatment.
 
-## Current Status
+## Current implementation
 
-Vanta Stream is in active development.
+Vanta Stream has a Vanta-owned presentation foundation on top of the proven upstream engine. The current phone experience includes the cinematic Home hero, black/red design tokens, native-refresh motion, backdrop-reactive glass navigation and controls, Vanta search/library/result/download surfaces, player glass controls, the locked boot sequence, and Vanta launcher/TV/notification branding.
 
-The project currently retains the upstream CloudStream foundation while the interface, branding, motion system, and component architecture are progressively redesigned.
+The extension/provider architecture, repositories, playback, history/data, downloads, Chromecast, package name, and legacy deep-link contracts remain compatible by design. Phone UI is the active presentation target; TV behavior is preserved while it receives measured Vanta updates.
 
-Expect breaking visual changes while the Vanta design system is being built.
+See [docs/VANTA_ENGINEERING.md](docs/VANTA_ENGINEERING.md) for the locked design, motion, compatibility, and validation contracts.
 
-## Planned UI System
+## UI system
 
-The Vanta interface will gradually introduce reusable native components such as:
+The reusable native presentation layer includes:
 
 - Vanta Glass Surface
 - Vanta Glass Button
@@ -42,10 +42,10 @@ The Vanta interface will gradually introduce reusable native components such as:
 - Vanta Glass Sheets and dialogs
 - Media-focused hero sections
 - Cinematic horizontal content rails
-- Redesigned search and library experiences
-- Redesigned playback controls
+- Vanta search, library, result, and download controls
+- Vanta playback controls
 
-Performance is a first-class requirement. Expensive effects such as blur, refraction, and backdrop processing should be implemented carefully so the UI can remain fluid across different device classes.
+The boot sequence is the sole intentional 60 FPS timeline. All other motion follows Android display vsync and can render at 60/90/120 Hz or higher. Glass uses hardware-backed backdrop capture and shader/color treatment; it does not perform per-frame software bitmap allocation.
 
 ## Extensions
 
